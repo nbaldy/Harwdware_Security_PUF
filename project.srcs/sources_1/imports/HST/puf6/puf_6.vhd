@@ -7,7 +7,6 @@ use IEEE.STD_LOGIC_1164.ALL;
 use ieee.std_logic_unsigned.all;
 use IEEE.numeric_std.ALL;
 
-
 entity puf_6 is
 	port(
 		clk: in std_logic;
@@ -43,23 +42,29 @@ architecture Behavioral of puf_6 is
 	end component;
 	
 	signal s_clk_count: std_logic_vector(3 downto 0) := (others => '0');
-	
+
+    type array8_bit_v8 is array (0 to 7) of std_logic_vector(7 downto 0);
+    type array8_bit_v16 is array (0 to 15) of std_logic_vector(7 downto 0);
+    type array256_bit_v is array (0 to 255) of std_logic_vector(255 downto 0);
+    type array8_bit is array (0 to 7) of std_logic_vector(7 downto 0);
+    type array5_bit is array (0 to 255) of std_logic_vector(4 downto 0);
+        
 --    signal s_decode_out : std_logic_vector(255 downto 0);
-	signal s_decode_out : array256_bit_v(255 downto 0);
+	signal s_decode_out : array256_bit_v; --(255 downto 0);
     signal s_enables : std_logic_vector(255 downto 0);
     
 	signal s_mux_outputs_a : std_logic_vector(7 downto 0);
 	signal s_mux_outputs_b : std_logic_vector(7 downto 0);
 	
-	signal s_mux_control_a : array8_bit_v(7 downto 0);
-	signal s_mux_control_b : array8_bit_v(7 downto 0);
+	signal s_mux_control_a : array8_bit_v8; --(7 downto 0);
+	signal s_mux_control_b : array8_bit_v8; --(7 downto 0);
 	
-    signal s_dec_input : array8_bit_v(15 downto 0);
+    signal s_dec_input : array8_bit_v16; --(15 downto 0);
     
-	signal s_ro_counters_a : array8_bit(7 downto 0);
-    signal s_ro_counters_b : array8_bit(7 downto 0);
+	signal s_ro_counters_a : array8_bit_v8; --(7 downto 0);
+    signal s_ro_counters_b : array8_bit_v8; --(7 downto 0);
 	
-	signal ros : array5_bit(255 downto 0);
+	signal ros : array5_bit; -- (255 downto 0);
 	signal s_ro_clks : std_logic_vector(255 downto 0);
 	
     signal s_done : std_logic;
@@ -133,7 +138,7 @@ begin
     -- Generate the decoders
 	gen_decoders: for i in 0 to 7 generate
 
-		decoder: PUFDec256
+		decoder: PUFDec256_6
             port map(
             i_Sel => s_mux_control_a(i),
             o_Q => s_decode_out(i)
