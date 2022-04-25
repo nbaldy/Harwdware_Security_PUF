@@ -46,18 +46,18 @@ architecture Behavioral of puf is
     type array8_bit_v8 is array (0 to 7) of std_logic_vector(7 downto 0);
     type array8_bit_v16 is array (0 to 7) of std_logic_vector(15 downto 0);
     type array256_bit_v is array (0 to 255) of std_logic_vector(255 downto 0);
-    type array8_bit is array (0 to 7) of std_logic_vector(7 downto 0);
+    type array8_bit is array (0 to 7) of std_logic_vector;
     type array5_bit is array (0 to 4) of std_logic_vector(255 downto 0);
         
 --    signal s_decode_out : std_logic_vector(255 downto 0);
 	signal s_decode_out : array256_bit_v; --(255 downto 0);
     signal s_enables : std_logic_vector(255 downto 0);
     
-	signal s_mux_outputs_a : std_logic_vector(15 downto 0);
-	signal s_mux_outputs_b : std_logic_vector(15 downto 0);
+	signal s_mux_outputs_a : std_logic_vector(7 downto 0);
+	signal s_mux_outputs_b : std_logic_vector(7 downto 0);
 	
-	signal s_mux_control_a : array8_bit_v16; --(7 downto 0);
-	signal s_mux_control_b : array8_bit_v16; --(7 downto 0);
+	signal s_mux_control_a : array8_bit_v8; --(7 downto 0);
+	signal s_mux_control_b : array8_bit_v8; --(7 downto 0);
 	
     signal s_dec_input : array8_bit_v16; --(15 downto 0);
     
