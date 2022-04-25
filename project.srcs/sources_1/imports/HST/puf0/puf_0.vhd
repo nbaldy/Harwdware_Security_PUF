@@ -6,8 +6,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use ieee.std_logic_unsigned.all;
 use IEEE.numeric_std.ALL;
---use work.Array_Types.ALL;
-
+--
 entity puf_0 is
 	port(
 		clk: in std_logic;
@@ -19,13 +18,6 @@ entity puf_0 is
 end puf_0;
 
 architecture Behavioral of puf_0 is
-
-
-    type array8_bit_v is array(0 to 7) of std_logic_vector;
-    type array256_bit_v is array(0 to 256) of std_logic_vector;
-    
-    type array8_bit is array(0 to 7) of std_logic_vector;
-    type array5_bit is array(0 to 5) of std_logic_vector;
     
 --	component PUF8Dec256 is
 --	port(
