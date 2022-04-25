@@ -107,8 +107,22 @@ begin
 	s_mux_control_a(7) <= data_in(15 downto 13) & data_in(4 downto 0);
 	s_mux_control_b(7) <= data_in(12 downto 5);
     
-    s_dec_input(15 downto 8) <= s_mux_control_a;
-    s_dec_input(7 downto 0) <= s_mux_control_b;
+    s_dec_input(15) <= s_mux_control_a(7);
+    s_dec_input(14) <= s_mux_control_a(6);
+    s_dec_input(13) <= s_mux_control_a(5);
+    s_dec_input(12) <= s_mux_control_a(4);
+    s_dec_input(11) <= s_mux_control_a(3);
+    s_dec_input(10) <= s_mux_control_a(2);
+    s_dec_input(09) <= s_mux_control_a(1);
+    s_dec_input(08) <= s_mux_control_a(0);
+    s_dec_input(07) <= s_mux_control_b(7);
+    s_dec_input(06) <= s_mux_control_b(6);
+    s_dec_input(05) <= s_mux_control_b(5);
+    s_dec_input(04) <= s_mux_control_b(4);
+    s_dec_input(03) <= s_mux_control_b(3);
+    s_dec_input(02) <= s_mux_control_b(2);
+    s_dec_input(01) <= s_mux_control_b(1);
+    s_dec_input(00) <= s_mux_control_b(0);
     
 --	decoder: PUF8Dec256
 --	port map(
@@ -119,7 +133,7 @@ begin
     -- Generate the decoders
 	gen_decoders: for i in 0 to 7 generate
 
-		decoder: PUFDec256_6
+		decoder: PUFDec256
             port map(
             i_Sel => s_mux_control_a(i),
             o_Q => s_decode_out(i)

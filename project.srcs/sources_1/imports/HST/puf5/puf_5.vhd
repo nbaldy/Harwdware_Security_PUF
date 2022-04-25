@@ -43,23 +43,29 @@ architecture Behavioral of puf_5 is
 	end component;
 	
 	signal s_clk_count: std_logic_vector(3 downto 0) := (others => '0');
-	
+
+    type array8_bit_v8 is array (0 to 7) of std_logic_vector(7 downto 0);
+    type array8_bit_v16 is array (0 to 15) of std_logic_vector(7 downto 0);
+    type array256_bit_v is array (0 to 255) of std_logic_vector(255 downto 0);
+    type array8_bit is array (0 to 7) of std_logic_vector(7 downto 0);
+    type array5_bit is array (0 to 255) of std_logic_vector(4 downto 0);
+        
 --    signal s_decode_out : std_logic_vector(255 downto 0);
-	signal s_decode_out : array256_bit_v(255 downto 0);
+	signal s_decode_out : array256_bit_v; --(255 downto 0);
     signal s_enables : std_logic_vector(255 downto 0);
     
 	signal s_mux_outputs_a : std_logic_vector(7 downto 0);
 	signal s_mux_outputs_b : std_logic_vector(7 downto 0);
 	
-	signal s_mux_control_a : array8_bit_v(7 downto 0);
-	signal s_mux_control_b : array8_bit_v(7 downto 0);
+	signal s_mux_control_a : array8_bit_v8; --(7 downto 0);
+	signal s_mux_control_b : array8_bit_v8; --(7 downto 0);
 	
-    signal s_dec_input : array8_bit_v(15 downto 0);
+    signal s_dec_input : array8_bit_v16; --(15 downto 0);
     
-	signal s_ro_counters_a : array8_bit(7 downto 0);
-    signal s_ro_counters_b : array8_bit(7 downto 0);
+	signal s_ro_counters_a : array8_bit_v8; --(7 downto 0);
+    signal s_ro_counters_b : array8_bit_v8; --(7 downto 0);
 	
-	signal ros : array5_bit(255 downto 0);
+	signal ros : array5_bit; -- (255 downto 0);
 	signal s_ro_clks : std_logic_vector(255 downto 0);
 	
     signal s_done : std_logic;
@@ -107,8 +113,22 @@ begin
 	s_mux_control_a(7) <= data_in(15 downto 13) & data_in(4 downto 0);
 	s_mux_control_b(7) <= data_in(12 downto 5);
     
-    s_dec_input(15 downto 8) <= s_mux_control_a;
-    s_dec_input(7 downto 0) <= s_mux_control_b;
+    s_dec_input(15) <= s_mux_control_a(7);
+    s_dec_input(14) <= s_mux_control_a(6);
+    s_dec_input(13) <= s_mux_control_a(5);
+    s_dec_input(12) <= s_mux_control_a(4);
+    s_dec_input(11) <= s_mux_control_a(3);
+    s_dec_input(10) <= s_mux_control_a(2);
+    s_dec_input(09) <= s_mux_control_a(1);
+    s_dec_input(08) <= s_mux_control_a(0);
+    s_dec_input(07) <= s_mux_control_b(7);
+    s_dec_input(06) <= s_mux_control_b(6);
+    s_dec_input(05) <= s_mux_control_b(5);
+    s_dec_input(04) <= s_mux_control_b(4);
+    s_dec_input(03) <= s_mux_control_b(3);
+    s_dec_input(02) <= s_mux_control_b(2);
+    s_dec_input(01) <= s_mux_control_b(1);
+    s_dec_input(00) <= s_mux_control_b(0);
     
 --	decoder: PUF8Dec256
 --	port map(
