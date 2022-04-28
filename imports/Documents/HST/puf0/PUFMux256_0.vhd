@@ -2,15 +2,15 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.ALL;
 
-entity PUFMux2560 is
+entity PUFMux256_0 is
 port(
 i_D : in std_logic_vector(255 downto 0); -- Data value input
 i_Sel : in std_logic_vector(7 downto 0);
 o_Q : out std_logic -- Data value output
 );
-end PUFMux2560;
+end PUFMux256_0;
 
-architecture structural of PUFMux2560 is
+architecture structural of PUFMux256_0 is
 
 begin
 

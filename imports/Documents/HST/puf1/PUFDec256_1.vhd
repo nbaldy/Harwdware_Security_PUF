@@ -2,14 +2,14 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.ALL;
 
-entity PUFDec2561 is
+entity PUFDec256_1 is
 port(
 	i_Sel0 : in std_logic_vector(15 downto 0);
 	o_Q0 : out std_logic_vector(255 downto 0) -- Data value output
 );
-end PUFDec2561;
+end PUFDec256_1;
 
-architecture behavior of PUFDec2561 is
+architecture behavior of PUFDec256_1 is
 
 begin
 
