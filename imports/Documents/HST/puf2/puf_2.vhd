@@ -8,7 +8,7 @@ use ieee.std_logic_unsigned.all;
 use IEEE.numeric_std.ALL;
 
 
-entity puf_2 is
+entity puf2 is
 	port(
 		clk: in std_logic;
 		rst: in std_logic;
@@ -16,17 +16,17 @@ entity puf_2 is
 		data_out: out std_logic_vector(7 downto 0);
 		done: out std_logic
 		);
-end puf_2;
+end puf2;
 
-architecture Behavioral of puf_2 is
-    component PUFDec256_2 is
+architecture Behavioral of puf2 is
+    component PUFDec2562 is
 	port(
 		i_Sel0 : in std_logic_vector(15 downto 0);
         o_Q0 : out std_logic_vector(255 downto 0)
 	);
 	end component;
     
-	component PUFMux256_2 is
+	component PUFMux2562 is
 	port(
 		i_D : in std_logic_vector(255 downto 0); -- Data value input
 		i_Sel : in std_logic_vector(7 downto 0);
@@ -104,7 +104,6 @@ begin
     s_dec_input(7 downto 0) <= s_mux_control_b;
 	
 	
-
 	
 --	decoder: PUF8Dec256
 --	port map(
@@ -114,7 +113,7 @@ begin
 	
     -- Generate the decoders
 	gen_decoders: for i in 0 to 7 generate
-		decoder: PUFDec256_2
+		decoder: PUFDec2562
             port map(
             i_Sel0 => s_dec_input(15 downto 0),
             o_Q0 => s_decode_out);
@@ -142,14 +141,14 @@ begin
     gen_muxes: for i in 0 to 7 generate
 	
 		-- Port Map a Single Column of 2 Muxes
-		MuxA_i : PUFMux256_2
+		MuxA_i : PUFMux2562
 		port map(
 				i_D => s_ro_clks(255 downto 0), -- Data value input
 				i_Sel => s_mux_control_a,
 				o_Q => s_mux_outputs_a(i) -- Data value output
 			);
 			
-		MuxB_i : PUFMux256_2
+		MuxB_i : PUFMux2562
 		port map(
 				i_D => s_ro_clks(255 downto 0), -- Data value input
 				i_Sel => s_mux_control_b,
